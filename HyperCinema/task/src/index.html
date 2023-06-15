@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+        <h1 id="main-title">Hyper Cinema</h1>
+        <p id="login-button">login</p>
+    </header>
+    <main>
+        <section id="video">
+            <video controls src="https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c0/Big_Buck_Bunny_4K.webm/Big_Buck_Bunny_4K.webm.480p.vp9.webm" width="828" height="499" poster="images/poster.webp"></video>
+        </section>
+        <section id="full-description">
+            <h2 class="name">Shrek</h2>
+            <p class="rating">6+</p>
+            <p class="sub-info">2001, USA, 1h 30m</p>
+            <p class="description">A mean lord exiles fairytale creatures to the swamp of a grumpy ogre, who must go on a quest and rescue a princess for the lord in order to get his land back.</p>
+            <table>
+                <tr>
+                    <th>Directors</th>
+                    <td>Andrew Adamson, Vicky Jenson</td>
+                </tr>
+                <tr>
+                    <th>Genres</th>
+                    <td>Animation, Adventure, Comedy</td>
+                </tr>
+                <tr>
+                    <th>IMDB</th>
+                    <td>7.9</td>
+                </tr>
+                <tr>
+                    <th>Kinopoisk</th>
+                    <td>8.2</td>
+                </tr>
+            </table>
+            <button id="trailer-button" class="buttons">Trailer</button>
+            <button id="reviews-button" class="buttons" onclick="scrollToId()">Reviews</button>
+        </section>
+        <section id="actors">
+            <h2 class="section-header">Actors</h2>
+            <div id="actors-list">
+                <article class="actor-card">
+                    <img src="images/Mike-Myers.jpg" alt="">
+                    <div>Mike Myers</div>
+                </article>
+                <article class="actor-card">
+                    <img src="images/Eddie-Murphy.jpg" alt="">
+                    <div>Eddie Murphy</div>
+                </article>
+                <article class="actor-card">
+                    <img src="images/Cameron-Diaz.jpg" alt="">
+                    <div>Cameron Diaz</div>
+                </article>
+                <article class="actor-card">
+                    <img src="images/John-Lithgow.png" alt="">
+                    <div>John Lithgow</div>
+                </article>
+                <article class="actor-card">
+                    <img src="images/Vincent-Cassel.jpg" alt="">
+                    <div>Vincent Cassel</div>
+                </article>
+                <article class="actor-card">
+                    <img src="images/Andrew-Adamson.png" alt="">
+                    <div>Andrew Adamson</div>
+                </article>
+                <article class="actor-card">
+                    <img src="images/Elisa-Gabrielli.jpg" alt="">
+                    <div>Elisa Gabrielli</div>
+                </article>
+            </div>
+        </section>
+        <section id="reviews">
+            <h2 id="reviews-header" class="section-header reviews">Reviews</h2>
+            <div id="reviews-list">
+                <article>
+                    <span class="date">21 June 2020</span>
+                    <h1>Groundbreaking</h1>
+                    <p class="review">For younger viewers, they might not understand the impact of "Shrek" on the film industry and CGI movies. However, being an older guy, I remember how groundbreaking and amazing the computer animation was when the film debuted. It was head and shoulders better than the few CGI movies that had come out in the previous decade...and it finally gave Pixar a serious run for the money. In addition, the plot was very adult...and the film's appeal was much greater than a typical CGI story. Great animation, great story telling and great voice acting, while the movie isn't quite impressive to see today, it still holds up very well and is well worth your time.<br><br>I could easily say more but this film has over a thousand reviews....so I'll just end it here!</p>
+                    <div class="grade positive">9<span>/10</span>
+                        <div class="background-prop"></div>
+                    </div>
+                </article>
+                <article>
+                    <p class="date">11 May 2021</p>
+                    <h1>Not the best movie, also scared some kids</h1>
+                    <p class="review">My 3 year old and my 8 year old (both sons) and my 12 year old (daughter) were terrified. True it didn’t show any scary fights or other things. My daughter was fine but she found disturbing memes. My sons found that the scene where shrek hits somebody with a sword while knighting them gave my kids nightmares. I recommend just depends on what the parent thinks.
+                        I would say watch it with your kids the first few times. Also not for young kids because they will have nightmares.</p>
+                    <div class="grade negative">2<span>/10</span>
+                        <div class="background-prop"></div>
+                    </div>
+                </article>
+                <article>
+                    <p class="date">11 May 2009</p>
+                    <h1>Original and funny: delightful for kids and adults alike!</h1>
+                    <p class="review">I liked the incidental music very much, especially in the escape from the Dragon scene. I wasn't hugely fond of the pop music featured, but putting that minor quibble aside, this was still an original and funny animated film, that will please any animation lover. The animation is faultless, never stiff, and lovely backgrounds. The script is laugh-out-loud funny with the fairytale characters, Gingerbread Man especially, and Robin Hood. The characters are definitely memorable, and the terrific voice cast brings the film to life. Mike Myers voices the ogre with feeling, but it is Eddie Murphy who steals the film. Though Cameron Diaz is lovely as Fiona, and John Lithgow is delightfully villainous as Lord Farquad, though his villain isn't the most memorable villain ever in an animation. The film sparkles with heart and humour, it is impossible not to like it. In conclusion, look out for it, you'll be glad you did! 9/10 Bethany Cox.</p>
+                    <div class="grade positive">8<span>/10</span>
+                        <div class="background-prop"></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <secrion id="summary">
+            <div id="reviews-summary">
+                <div class="border-left"></div>
+                <p class="reviews-number">3</p>
+                <p class="caption">total</p>
+                <p class="reviews-number positive">2</p>
+                <span class="percent">66,6%</span>
+                <p class="caption">positive</p>
+                <p class="reviews-number negative">1</p>
+                <span class="percent">33,3%</span>
+                <p class="caption">negative</p>
+            </div>
+        </secrion>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+type: edu
+files:
+- name: src/index.html
+  visible: true
+  text: |-
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+    </head>
+    <body>
+
+    </body>
+    </html>
+  learner_created: false
+- name: test/test.js
+  visible: false
+  text: "import path from 'path';\nconst pagePath = path.join(import.meta.url, '../../src/index.html');\n\
+    import {StageTest, correct, wrong} from 'hs-test-web';\n\nfunction nonStrictCompare(a,\
+    \ b, offset) {\n    if (!offset) {\n        offset = 10;\n    }\n    return Math.abs(a\
+    \ - b) < offset;\n}\n\nclass Test extends StageTest {\n\n    page = this.getPage(pagePath)\n\
+    \n    tests = [\n        // Test 1 - check main-title\n        this.node.execute(async\
+    \ () => {\n            await this.page.setViewport({width: 1440, height: 740});\n\
+    \            const title = await this.page.findBySelector('#main-title');\n  \
+    \          return title ?\n                correct() :\n                wrong(`Your\
+    \ page must contain a main-title element.`)\n        }),\n        // Test 2 -\
+    \ check login-button\n        this.page.execute(() => {\n            this.loginButton\
+    \ = document.getElementById('login-button');\n\n            return this.loginButton\
+    \ ?\n                correct() :\n                wrong(`Your page must contain\
+    \ an element with \"login-button\" id.`)\n        }),\n        // Test 3 - check\
+    \ main title position\n        this.node.execute(async () => {\n            let\
+    \ titleCoords = await this.page.evaluate(async () => {\n                let titleObj\
+    \ = document.getElementById('main-title');\n                return titleObj ?\
+    \ [titleObj.getBoundingClientRect().x, titleObj.getBoundingClientRect().y] : [-1,\
+    \ -1];\n            });\n            return titleCoords[0] === 90 && nonStrictCompare(titleCoords[1],\
+    \ 20, 5) ?\n                correct() :\n                wrong(`Check float and\
+    \ position of main-title element. Now your project has the following values: \n\
+    \                x-coordinate=${titleCoords[0]} and y-coordinate=${titleCoords[1]}.`);\n\
+    \        }),\n        // Test 4 - check login position\n        this.node.execute(async\
+    \ () => {\n            let loginCoords = await this.page.evaluate(async () =>\
+    \ {\n                let loginObj = document.getElementById('login-button');\n\
+    \                return loginObj ? [loginObj.getBoundingClientRect().x + loginObj.getBoundingClientRect().width,\
+    \ loginObj.getBoundingClientRect().y] : [-1, -1];\n            });\n\n       \
+    \     return loginCoords[0] === 1350 && loginCoords[1] === 20 ?\n            \
+    \    correct() :\n                wrong(`Check float and position of login-button.\
+    \ Now your project has the following values of login-button: \n              \
+    \  y-coordinate=${loginCoords[1]} and x-coordinate of the right border=${loginCoords[0]}`);\n\
+    \        }),\n        // Test 5 - check video\n        this.page.execute(() =>\
+    \ {\n            this.video = document.getElementsByTagName('video');\n\n    \
+    \        return this.video.length > 0 ?\n                correct() :\n       \
+    \         wrong(`Your page should contain a video tag.`)\n        }),\n      \
+    \  // Test 6 - check video position\n        this.node.execute(async () => {\n\
+    \            let videoCoords = await this.page.evaluate(async () => {\n      \
+    \          let video = document.getElementsByTagName('video')[0];\n          \
+    \      return video ? [video.getBoundingClientRect().x, video.getBoundingClientRect().y]\
+    \ : [-1, -1];\n            });\n            return videoCoords[0] === 90 && nonStrictCompare(videoCoords[1],\
+    \ 134) ?\n                correct() :\n                wrong(`Check position of\
+    \ video element. Now your project has the following values of video: \n      \
+    \          x-coordinate=${videoCoords[0]} and y-coordinate=${videoCoords[1]}.`);\n\
+    \        }),\n        // Test 7 - check video width and height\n        this.node.execute(async\
+    \ () => {\n            let videoWidth = await this.page.evaluate(async () => {\n\
+    \                let video = document.getElementsByTagName('video')[0];\n    \
+    \            return [video.getBoundingClientRect().width, video.getBoundingClientRect().height];\n\
+    \            });\n\n            return videoWidth[0] === 828 && nonStrictCompare(videoWidth[1],\
+    \ 500) ?\n                correct() :\n                wrong(`Check size of video\
+    \ element, now you have width=${videoWidth[0]} and height=${videoWidth[1]}.`);\n\
+    \        }),\n        // Test 8 - check name\n        this.page.execute(() =>\
+    \ {\n            this.nameEl = document.getElementsByClassName('name');\n\n  \
+    \          return this.nameEl.length > 0 ?\n                correct() :\n    \
+    \            wrong(`Your page should contain a name element.`)\n        }),\n\
+    \        // Test 9 - check name font\n        this.page.execute(() => {\n    \
+    \        let nameStyles = window.getComputedStyle(this.nameEl[0]);\n\n       \
+    \     return nameStyles.fontWeight === \"700\" && nameStyles.fontSize === \"40px\"\
+    \ &&\n                nameStyles.fontFamily.includes('Montserrat') && nameStyles.color\
+    \ === \"rgb(0, 0, 0)\" ?\n                correct() :\n                wrong(`Please,\
+    \ check font of name element.`)\n        }),\n        // Test 10 - check name\
+    \ position\n        this.node.execute(async () => {\n            let nameCoords\
+    \ = await this.page.evaluate(async () => {\n                let nameEl = document.getElementsByClassName('name')[0];\n\
+    \                return nameEl ? [nameEl.getBoundingClientRect().x, nameEl.getBoundingClientRect().y]\
+    \ : [-1, -1];\n            });\n            return nonStrictCompare(nameCoords[0],\
+    \ 955) && nonStrictCompare(nameCoords[1], 144) ?\n                correct() :\n\
+    \                wrong(`Check position of name element, your positions are: x=${nameCoords[0]}\
+    \ and y=${nameCoords[1]}.`);\n        }),\n\n        // Test 11 - check rating\n\
+    \        this.page.execute(() => {\n            this.rating = document.getElementsByClassName('rating');\n\
+    \n            return this.rating.length > 0 ?\n                correct() :\n \
+    \               wrong(`Your page should contain a rating element.`)\n        }),\n\
+    \        // Test 12 - check rating font\n        this.page.execute(() => {\n \
+    \           this.ratingStyles = window.getComputedStyle(this.rating[0]);\n\n \
+    \           return this.ratingStyles.fontSize === \"20px\" && this.ratingStyles.fontFamily.includes('Montserrat')\n\
+    \            && this.ratingStyles.color === \"rgb(0, 0, 0)\" ?\n             \
+    \   correct() :\n                wrong(`Please, check font of rating element.`)\n\
+    \        }),\n        // Test 13 - check rating positions\n        this.node.execute(async\
+    \ () => {\n            let ratingCoords = await this.page.evaluate(async () =>\
+    \ {\n                let ratingEl = document.querySelector('.rating').getBoundingClientRect();\n\
+    \                let nameEl = document.querySelector('.name').getBoundingClientRect();\n\
+    \n                let ratingLeft = ratingEl.x;\n                let nameRight\
+    \ = nameEl.x + nameEl.width;\n\n                return [ratingLeft - nameRight,\
+    \ ratingEl.y];\n            });\n            return ratingCoords[0] === 20 &&\
+    \ nonStrictCompare(ratingCoords[1], 154) ?\n                correct() :\n    \
+    \            wrong(`Check position of rating element. Now your project has the\
+    \ following values of rating element: \n                y-coordinate=${ratingCoords[1]}\
+    \ and distance between name and rating element is ${ratingCoords[0]}.`);\n   \
+    \     }),\n        // Test 14 - check rating border\n        this.page.execute(()\
+    \ => {\n            return this.ratingStyles.border === \"1px solid rgb(187, 184,\
+    \ 192)\" && this.ratingStyles.borderRadius === \"6px\" ?\n                correct()\
+    \ :\n                wrong(`Please, check border of rating element.`)\n      \
+    \  }),\n        // Test 15 - check rating size\n        this.page.execute(() =>\
+    \ {\n            return this.ratingStyles.width === \"44px\" && this.ratingStyles.height\
+    \ === \"29px\" ?\n                correct() :\n                wrong(`Please,\
+    \ check size of rating element. Now your project has the following values of rating\
+    \ element:\n                width=${this.ratingStyles.width} and height=${this.ratingStyles.height}.`)\n\
+    \        }),\n        // Test 16 - check sub-info\n        this.page.execute(()\
+    \ => {\n            this.subInfo = document.getElementsByClassName('sub-info');\n\
+    \n            return this.subInfo.length > 0 ?\n                correct() :\n\
+    \                wrong(`Your page should contain a sub-info element.`)\n     \
+    \   }),\n        // Test 17 - check sub-info font\n        this.page.execute(()\
+    \ => {\n            this.subInfoStyles = window.getComputedStyle(this.subInfo[0]);\n\
+    \n            return this.subInfoStyles.fontWeight === \"300\" && this.subInfoStyles.fontFamily.includes('Inter')\n\
+    \            && this.subInfoStyles.fontSize === \"14px\" &&  this.subInfoStyles.opacity\
+    \ === \"0.6\"?\n                correct() :\n                wrong(`Please, check\
+    \ font and opacity of sub-info element.`)\n        }),\n        // Test 18 - check\
+    \ sub-info position\n        this.node.execute(async () => {\n            let\
+    \ subInfoCoords = await this.page.evaluate(async () => {\n                let\
+    \ subInfoEl = document.getElementsByClassName('sub-info')[0];\n              \
+    \  return [subInfoEl.getBoundingClientRect().x, subInfoEl.getBoundingClientRect().y];\n\
+    \            });\n            return nonStrictCompare(subInfoCoords[0], 955) &&\
+    \ nonStrictCompare(subInfoCoords[1], 203) ?\n                correct() :\n   \
+    \             wrong(`Check position of sub-info element. Now your project has\
+    \ the following values of sub-info element: \n                x-coordinate=${subInfoCoords[0]}\
+    \ and y-coordinate=${subInfoCoords[1]}.`);\n        }),\n        // Test 19 -\
+    \ check description\n        this.page.execute(() => {\n            this.description\
+    \ = document.getElementsByClassName('description');\n\n            return this.description.length\
+    \ > 0 ?\n                correct() :\n                wrong(`Your page should\
+    \ contain a description element.`)\n        }),\n        // Test 20 - check description\
+    \ font\n        this.page.execute(() => {\n            this.descriptionStyles\
+    \ = window.getComputedStyle(this.description[0]);\n\n            return this.descriptionStyles.fontWeight\
+    \ === \"400\" && this.descriptionStyles.fontFamily.includes('Inter')\n       \
+    \     && this.descriptionStyles.fontSize === \"18px\" ?\n                correct()\
+    \ :\n                wrong(`Please, check font of sub-info element.`)\n      \
+    \  }),\n        // Test 21 - check description position\n        this.node.execute(async\
+    \ () => {\n            let descriptionCoords = await this.page.evaluate(async\
+    \ () => {\n                let descriptionEl = document.getElementsByClassName('description')[0];\n\
+    \                return [descriptionEl.getBoundingClientRect().x, descriptionEl.getBoundingClientRect().y];\n\
+    \            });\n            return nonStrictCompare(descriptionCoords[0], 955)\
+    \ && nonStrictCompare(descriptionCoords[1], 250) ?\n                correct()\
+    \ :\n                wrong(`Check position of description element. Now your project\
+    \ has the following values of description element: \n                x-coordinate=${descriptionCoords[0]}\
+    \ and y-coordinate=${descriptionCoords[1]}.`);\n        }),\n        // Test 22\
+    \ - check table\n        this.page.execute(() => {\n            this.table = document.getElementsByTagName('table');\n\
+    \n            return this.table.length > 0 ?\n                correct() :\n  \
+    \              wrong(`Your page should contain a table tag.`)\n        }),\n \
+    \       // Test 23 - check table font\n        this.page.execute(() => {\n   \
+    \         this.tableStyles = window.getComputedStyle(this.table[0]);\n\n     \
+    \       return this.tableStyles.fontWeight === \"400\" && this.tableStyles.fontFamily.includes('Inter')\n\
+    \            && this.tableStyles.fontSize === \"16px\" ?\n                correct()\
+    \ :\n                wrong(`Please, check font of table element.`)\n        }),\n\
+    \        // Test 24 - check table position\n        this.node.execute(async ()\
+    \ => {\n            let tableCoords = await this.page.evaluate(async () => {\n\
+    \                let tableEl = document.getElementsByTagName('table')[0];\n  \
+    \              return [tableEl.getBoundingClientRect().x, tableEl.getBoundingClientRect().y];\n\
+    \            });\n            return nonStrictCompare(tableCoords[0], 955) &&\
+    \ nonStrictCompare(tableCoords[1], 369, 15) ?\n                correct() :\n \
+    \               wrong(`Check position of table element, your positions are: x=${tableCoords[0]}\
+    \ and y=${tableCoords[1]}.`);\n        }),\n        // Test 25 - check table headers\
+    \ styles\n        this.page.execute(() => {\n            let evenTds = document.querySelectorAll('th');\n\
+    \            let correctFlag = true;\n            for (let td of evenTds) {\n\
+    \                if(window.getComputedStyle(td).fontWeight !== '600') {\n    \
+    \                correctFlag = false;\n                }\n            }\n    \
+    \        return correctFlag ?\n                correct() :\n                wrong(`Please,\
+    \ check font of header's column in table.`)\n        }),\n        // Test 26 -\
+    \ check buttons\n        this.page.execute(() => {\n            this.buttons =\
+    \ document.getElementsByTagName('button');\n\n            return this.buttons.length\
+    \ === 2 ?\n                correct() :\n                wrong(`Your page should\
+    \ contain 2 button elements.`)\n        }),\n        // Test 27 - check buttons\
+    \ font\n        this.page.execute(() => {\n            this.buttonStyles = window.getComputedStyle(this.buttons[0]);\n\
+    \n            return this.buttonStyles.fontWeight === \"700\" && this.buttonStyles.fontFamily.includes('Inter')\n\
+    \            && this.buttonStyles.fontSize === \"16px\" && this.buttonStyles.color\
+    \ === \"rgb(130, 45, 180)\" ?\n                correct() :\n                wrong(`Please,\
+    \ check font of button element.`)\n        }),\n        // Test 28 - check buttons\
+    \ position\n        this.node.execute(async () => {\n            let buttonCoords\
+    \ = await this.page.evaluate(async () => {\n                let buttonEl1 = document.getElementsByTagName('button')[0];\n\
+    \                let buttonEl2 = document.getElementsByTagName('button')[1];\n\
+    \                return [buttonEl1.getBoundingClientRect().x, buttonEl1.getBoundingClientRect().y,\n\
+    \                    buttonEl2.getBoundingClientRect().x, buttonEl2.getBoundingClientRect().y];\n\
+    \            });\n            return nonStrictCompare(buttonCoords[0], 955) &&\
+    \ nonStrictCompare(buttonCoords[1], 592) &&\n            nonStrictCompare(buttonCoords[2],\
+    \ 1170) && nonStrictCompare(buttonCoords[3], 592) ?\n                correct()\
+    \ :\n                wrong(`Check position of buttons element. Now your project\
+    \ has the following values of buttons elements: \n                left button\
+    \ coordinates - x=${buttonCoords[0]} and y=${buttonCoords[1]}, \n            \
+    \    right button coordinates - x=${buttonCoords[2]} and y=${buttonCoords[3]}`);\n\
+    \        }),\n        // Test 29 - check buttons border\n        this.page.execute(()\
+    \ => {\n            return this.buttonStyles.border === \"1px solid rgb(130, 45,\
+    \ 180)\" && this.buttonStyles.borderRadius === \"8px\" ?\n                correct()\
+    \ :\n                wrong(`Please, check border of button element.`)\n      \
+    \  }),\n        // Test 30 - check buttons size\n        this.page.execute(()\
+    \ => {\n            return this.buttonStyles.width === \"180px\" && this.buttonStyles.height\
+    \ === \"50px\" ?\n                correct() :\n                wrong(`Please,\
+    \ check size of button element. Now your project has the following values of buttons\
+    \ elements: \n                width=${this.buttonStyles.width} and height=${this.buttonStyles.height}.`)\n\
+    \        }),\n        // Test 31 - check hover buttons\n        this.node.execute(async\
+    \ () =>{\n            const button = await this.page.findBySelector('button');\n\
+    \            await button.hover();\n            let style = await button.getComputedStyles();\n\
+    \            return style.backgroundColor === 'rgb(130, 45, 180)' && style.color\
+    \ === 'rgb(242, 235, 255)' ?\n                correct() :\n                wrong(`Check\
+    \ hover-effect of buttons.`);\n        }),\n        // Test 32 - check video src\n\
+    \        this.page.execute(() => {\n            return this.video[0].src ?\n \
+    \               correct() :\n                wrong(`Please, add src in your player.`)\n\
+    \        }),\n\n    ]\n\n}\n\nit(\"Test stage\", async () => {\n        await\
+    \ new Test().runTests()\n    }\n).timeout(30000);\n"
+  learner_created: false
+- name: src/style.css
+  visible: true
+  learner_created: true
+- name: src/images/poster.jpg
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/22774#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Thu, 08 Jun 2023 14:54:01 UTC"
+record: 4

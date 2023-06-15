@@ -1,0 +1,114 @@
+type: edu
+files:
+- name: src/index.html
+  visible: true
+  text: |-
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+    </head>
+    <body>
+
+    </body>
+    </html>
+  learner_created: false
+- name: test/test.js
+  visible: false
+  text: "import path from 'path';\nconst pagePath = path.join(import.meta.url, '../../src/index.html');\n\
+    import {StageTest, correct, wrong} from 'hs-test-web';\n\nfunction nonStrictCompare(a,\
+    \ b, offset) {\n    if (!offset) {\n        offset = 10;\n    }\n    return Math.abs(a\
+    \ - b) < offset;\n}\nclass Test extends StageTest {\n\n    page = this.getPage(pagePath);\n\
+    \n    tests = [\n        // Test 1 - check main-title\n        this.node.execute(async\
+    \ () => {\n            await this.page.setViewport({width: 1440, height: 740});\n\
+    \            const title = await this.page.findBySelector('#main-title');\n  \
+    \          return title ?\n                correct() :\n                wrong(`Your\
+    \ page must contain a main-title element.`)\n        }),\n        // Test 2 -\
+    \ check login-button\n        this.page.execute(() => {\n            this.loginButton\
+    \ = document.getElementById('login-button');\n\n            return this.loginButton\
+    \ ?\n                correct() :\n                wrong(`Your page must contain\
+    \ an element with \"login-button\" id.`)\n        }),\n        // Test 3 - check\
+    \ main title font\n        this.page.execute(() => {\n            this.title =\
+    \ document.getElementById('main-title');\n            let titleStyles = window.getComputedStyle(this.title);\n\
+    \n            return titleStyles.fontSize === '18px' && titleStyles.fontWeight\
+    \ === '500' &&  titleStyles.fontFamily.indexOf('Inter') !== -1 ?\n           \
+    \     correct() :\n                wrong(`Check your main-title element font size,\
+    \ family and weight (we expect that you have connected the font Inter using GoogleFonts).\n\
+    \                Now your project has the following values: fontSize=${titleStyles.fontSize},\
+    \ fontWeight=${titleStyles.fontWeight} and fontFamily=${titleStyles.fontFamily}.`)\n\
+    \        }),\n        // Test 4 - check main title position\n        this.node.execute(async\
+    \ () => {\n            let titleCoords = await this.page.evaluate(async () =>\
+    \ {\n                let titleObj = document.getElementById('main-title');\n \
+    \               return titleObj ? [titleObj.getBoundingClientRect().x, titleObj.getBoundingClientRect().y]\
+    \ : [-1, -1];\n            });\n            return titleCoords[0] === 90 && nonStrictCompare(titleCoords[1],\
+    \ 20, 5) ?\n                correct() :\n                wrong(`Check float and\
+    \ position of main-title element. Now your project has the following values: \n\
+    \                x-coordinate=${titleCoords[0]} and y-coordinate=${titleCoords[1]}.`);\n\
+    \        }),\n        // Test 5 - check body background-color\n        this.page.execute(()\
+    \ => {\n            let bodyStyles = window.getComputedStyle(document.body);\n\
+    \n            return bodyStyles.backgroundColor === 'rgb(242, 235, 255)' ?\n \
+    \               correct() :\n                wrong(`Check background-color of\
+    \ body. Now your project has the following values: backgroundColor=${bodyStyles.backgroundColor}.`)\n\
+    \        }),\n        // Test 6 - check login-button font\n        this.page.execute(()\
+    \ => {\n            let loginStyles = window.getComputedStyle(this.loginButton);\n\
+    \n            return loginStyles.fontSize === '16px' && loginStyles.fontWeight\
+    \ === '500' && loginStyles.opacity === '0.8' &&\n                loginStyles.fontFamily.includes('Inter')\
+    \ ?\n                correct() :\n                wrong(`Check your login-button\
+    \ element font size, weight, family and opacity (we expect that you have connected\
+    \ the font Inter using GoogleFonts).\n                Now your project has the\
+    \ following values: fontSize=${loginStyles.fontSize}, fontWeight=${loginStyles.fontWeight},\n\
+    \                opacity=${loginStyles.opacity} and fontFamily=${loginStyles.fontFamily}.`)\n\
+    \        }),\n        // Test 7 - check login position\n        this.node.execute(async\
+    \ () => {\n            let loginCoords = await this.page.evaluate(async () =>\
+    \ {\n                let loginObj = document.getElementById('login-button');\n\
+    \                return loginObj ? [loginObj.getBoundingClientRect().x + loginObj.getBoundingClientRect().width,\
+    \ loginObj.getBoundingClientRect().y] : [-1, -1];\n            });\n\n       \
+    \     return loginCoords[0] === 1350 && loginCoords[1] === 20 ?\n            \
+    \    correct() :\n                wrong(`Check float and position of login-button.\
+    \ Now your project has the following values of login-button: \n              \
+    \  y-coordinate=${loginCoords[1]} and x-coordinate of the right border=${loginCoords[0]}`);\n\
+    \        }),\n        // Test 8 - check video\n        this.page.execute(() =>\
+    \ {\n            this.video = document.getElementsByTagName('video');\n\n    \
+    \        return this.video.length > 0 ?\n                correct() :\n       \
+    \         wrong(`Your page should contain a video tag.`)\n        }),\n      \
+    \  // Test 9 - check video position\n        this.node.execute(async () => {\n\
+    \            let videoCoords = await this.page.evaluate(async () => {\n      \
+    \          let video = document.getElementsByTagName('video')[0];\n          \
+    \      return video ? [video.getBoundingClientRect().x, video.getBoundingClientRect().y]\
+    \ : [-1, -1];\n            });\n            return videoCoords[0] === 90 && nonStrictCompare(videoCoords[1],\
+    \ 134) ?\n                correct() :\n                wrong(`Check position of\
+    \ video element. Now your project has the following values of video: \n      \
+    \          x-coordinate=${videoCoords[0]} and y-coordinate=${videoCoords[1]}.`);\n\
+    \        }),\n        // Test 10 - check video poster and controls\n        this.page.execute(()\
+    \ => {\n            return this.video[0].controls && this.video[0].poster ?\n\
+    \                correct() :\n                wrong(`Check if you have controls\
+    \ enabled for the video element and if a poster has been added.`)\n        }),\n\
+    \        // Test 11 - check video border\n        this.page.execute(() => {\n\
+    \            let videoStyles = window.getComputedStyle(this.video[0]);\n\n   \
+    \         return videoStyles.border === \"1px solid rgb(0, 0, 0)\" && videoStyles.borderRadius\
+    \ === \"10px\" ?\n                correct() :\n                wrong(`Please,\
+    \ check border of your video tag. Now your project has the following values of\
+    \ video: \n                border=${videoStyles.border} and borderRadius=${videoStyles.borderRadius}.`)\n\
+    \        }),\n        // Test 12 - check video width and height\n        this.node.execute(async\
+    \ () => {\n            let videoWidth = await this.page.evaluate(async () => {\n\
+    \                let video = document.getElementsByTagName('video')[0];\n    \
+    \            return [video.getBoundingClientRect().width, video.getBoundingClientRect().height];\n\
+    \            });\n\n            return nonStrictCompare(videoWidth[0], 828, 5)\
+    \ && nonStrictCompare(videoWidth[1], 500) ?\n                correct() :\n   \
+    \             wrong(`Check size of video element, now you have width=${videoWidth[0]}\
+    \ and height=${videoWidth[1]}.`);\n        }),\n\n    ]\n\n}\n\nit(\"Test stage\"\
+    , async () => {\n        await new Test().runTests()\n    }\n).timeout(30000);\n"
+  learner_created: false
+- name: src/style.css
+  visible: true
+  learner_created: true
+- name: src/images/poster.jpg
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/22773#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Wed, 07 Jun 2023 15:03:56 UTC"
+record: 2

@@ -1,0 +1,8 @@
+type: framework
+content:
+- Basic markup
+- Describe your movie
+- How about actors
+- Always check the reviews
+- Let's add some action
+current_task: 4
