@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://cogniterra.org/media/attachments/lesson/26966/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Thu, 15 Jun 2023 10:04:06 UTC"
+update_date: "Fri, 16 Jun 2023 08:15:23 UTC"
 stages:
 - id: 1524
   step: 22773
@@ -19,7 +19,7 @@ stages:
   is_completed: true
 - id: 1528
   step: 22777
-  is_completed: false
+  is_completed: true
 topics:
   0:
   - title: Binary numbers
@@ -62,50 +62,6 @@ topics:
     theory_id: 8635
   - title: Layout elements
     theory_id: 13326
-  - title: Images
-    theory_id: 9237
-  - title: Video
-    theory_id: 16637
-  - title: The HTML SEO optimization
-    theory_id: 21889
-  - title: Introduction to Figma
-    theory_id: 26881
-  - title: Web development
-    theory_id: 13931
-  - title: HTML basics
-    theory_id: 6434
-  - title: Tags and Attributes
-    theory_id: 7536
-  - title: HTML page structure
-    theory_id: 6491
-  - title: Comments
-    theory_id: 7502
-  - title: Position
-    theory_id: 11581
-  - title: Float
-    theory_id: 12697
-  - title: Margin and Padding
-    theory_id: 26903
-  - title: Width and Height
-    theory_id: 8325
-  - title: Google Fonts
-    theory_id: 7844
-  - title: Border
-    theory_id: 8355
-  - title: Opacity
-    theory_id: 11169
-  - title: Links
-    theory_id: 11834
-  - title: Using Fonts
-    theory_id: 15189
-  - title: RGB
-    theory_id: 8819
-  - title: "Headings, Paragraphs, Comments"
-    theory_id: 21203
-  - title: Colors in CSS
-    theory_id: 7973
-  - title: Background
-    theory_id: 11670
   1:
   - title: Intro to HTML forms
     theory_id: 6560

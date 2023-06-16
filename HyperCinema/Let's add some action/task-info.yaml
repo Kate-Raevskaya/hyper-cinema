@@ -253,11 +253,9 @@ files:
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/learn/step/22777#comment
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Error: Wrong answer in test #17
-
-    Please check transform and box-shadow-animation after button hovering. Now you have transform=matrix(1, 0, 0, 1, 10, -10) and boxShadow=rgb(0, 0, 0) -10px 10px 0px 0px after hover.
-  time: "Thu, 15 Jun 2023 11:28:16 UTC"
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Thu, 15 Jun 2023 19:17:11 UTC"
 record: -1
